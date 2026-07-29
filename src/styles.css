@@ -131,6 +131,7 @@
   --gradient-glow: radial-gradient(60% 60% at 50% 0%, oklch(0.55 0.15 255 / 0.14) 0%, transparent 70%);
   --shadow-elev: 0 18px 40px -24px oklch(0.35 0.06 255 / 0.35);
   --shadow-ember: 0 16px 40px -18px oklch(0.55 0.15 255 / 0.45);
+  --grid-line: oklch(0.35 0.05 255 / 0.08);
 }
 
 /* ---------------------------------------------------------------
@@ -193,6 +194,7 @@
   --gradient-glow: radial-gradient(60% 60% at 50% 0%, oklch(0.64 0.145 250 / 0.26) 0%, transparent 70%);
   --shadow-elev: 0 24px 60px -24px oklch(0 0 0 / 0.7);
   --shadow-ember: 0 18px 50px -18px oklch(0.64 0.145 250 / 0.5);
+  --grid-line: oklch(1 0 0 / 0.045);
 }
 
 @layer base {
