@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Menu, X, Flame } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -56,20 +57,24 @@ export function SiteNav() {
           ))}
         </div>
 
-        <div className="hidden lg:block">
+        <div className="hidden items-center gap-2 lg:flex">
+          <ThemeToggle />
           <Button asChild size="sm">
             <Link to="/demonstracao">Solicitar demonstração</Link>
           </Button>
         </div>
 
-        <button
-          type="button"
-          aria-label={open ? "Fechar menu" : "Abrir menu"}
-          onClick={() => setOpen((v) => !v)}
-          className="grid size-10 place-items-center rounded-lg border border-border/70 lg:hidden"
-        >
-          {open ? <X className="size-5" /> : <Menu className="size-5" />}
-        </button>
+        <div className="flex items-center gap-2 lg:hidden">
+          <ThemeToggle />
+          <button
+            type="button"
+            aria-label={open ? "Fechar menu" : "Abrir menu"}
+            onClick={() => setOpen((v) => !v)}
+            className="grid size-10 place-items-center rounded-lg border border-border/70"
+          >
+            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
+        </div>
       </nav>
 
       {open && (
