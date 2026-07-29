@@ -138,7 +138,7 @@ export function Desossa() {
         )}
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
+      <div className="grid items-start gap-6 lg:grid-cols-[1fr_1fr]">
         <Panel>
           <div className="flex items-center gap-2">
             <Scissors className="size-4 text-primary" />
