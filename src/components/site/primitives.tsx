@@ -53,8 +53,20 @@ export function Section({
   );
 }
 
-export function Panel({ children, className }: { children: ReactNode; className?: string }) {
-  return <div className={cn("panel p-5 sm:p-6", className)}>{children}</div>;
+export function Panel({
+  children,
+  className,
+  id,
+}: {
+  children: ReactNode;
+  className?: string;
+  id?: string;
+}) {
+  return (
+    <div id={id} className={cn("panel p-5 sm:p-6", className)}>
+      {children}
+    </div>
+  );
 }
 
 export function DemoTag({ className }: { className?: string }) {
