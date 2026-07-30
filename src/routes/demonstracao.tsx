@@ -8,43 +8,126 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { AtencaoHoje } from "@/components/site/AtencaoHoje";
+import { ComprasInteligentes, EstoqueInteligente } from "@/components/site/SectionsOperacao";
+import { Desossa, Perdas } from "@/components/site/SectionsPerdasDesossa";
+import { Etiquetas, InteligenciaEtiquetas, Producao } from "@/components/site/SectionsProducaoEtiquetas";
+import {
+  CentralAlertas,
+  Cmv,
+  Comercial,
+  DashboardExecutivo,
+  Financeiro,
+  Margens,
+} from "@/components/site/SectionsFinanceiro";
+import { cn } from "@/lib/utils";
+
+const TITLE = "Casa de Carnes Modelo | Ambiente demonstrativo IGA";
+const DESC =
+  "Explore livremente um ambiente demonstrativo de gestão para casas de carnes: dashboard, compras, estoque, perdas, desossa, produção, etiquetas, CMV, financeiro, comercial e alertas.";
 
 export const Route = createFileRoute("/demonstracao")({
   head: () => ({
     meta: [
-      { title: "Solicitar demonstração | IGA Tecnologia" },
-      {
-        name: "description",
-        content:
-          "Agende uma demonstração da plataforma de gestão inteligente para açougues e casas de carnes: ERP, desossa, perdas, etiquetas e análise de dados.",
-      },
-      { property: "og:title", content: "Solicitar demonstração | IGA Tecnologia" },
-      {
-        property: "og:description",
-        content:
-          "Fale com um especialista e veja na prática como transformar os dados do seu açougue em decisões mais lucrativas.",
-      },
+      { title: TITLE },
+      { name: "description", content: DESC },
+      { property: "og:title", content: TITLE },
+      { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
+      { property: "og:locale", content: "pt_BR" },
+      { property: "og:site_name", content: "IGA Tecnologia" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: TITLE },
+      { name: "twitter:description", content: DESC },
     ],
   }),
   component: Demonstracao,
 });
 
+const areas = [
+  { id: "dashboard", label: "Dashboard", render: () => <><DashboardExecutivo /><AtencaoHoje tone="surface" /></> },
+  { id: "compras", label: "Compras", render: () => <ComprasInteligentes /> },
+  { id: "estoque", label: "Estoque", render: () => <EstoqueInteligente /> },
+  { id: "perdas", label: "Perdas", render: () => <Perdas /> },
+  { id: "desossa", label: "Desossa", render: () => <Desossa /> },
+  { id: "producao", label: "Produção", render: () => <Producao /> },
+  { id: "etiquetas", label: "Etiquetas", render: () => <><Etiquetas /><InteligenciaEtiquetas /></> },
+  { id: "cmv", label: "CMV", render: () => <Cmv /> },
+  { id: "financeiro", label: "Financeiro", render: () => <><Financeiro /><Margens /></> },
+  { id: "comercial", label: "Comercial", render: () => <Comercial /> },
+  { id: "alertas", label: "Alertas", render: () => <CentralAlertas /> },
+] as const;
+
 function Demonstracao() {
+  const [ativo, setAtivo] = useState<string>("dashboard");
   const [enviado, setEnviado] = useState(false);
+  const area = areas.find((a) => a.id === ativo) ?? areas[0];
 
   return (
     <div className="min-h-screen bg-background">
       <SiteNav />
       <main className="pt-16">
+        <div className="border-b border-accent/30 bg-accent/10 px-5 py-2.5 text-center sm:px-8">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+            Ambiente demonstrativo — dados fictícios
+          </p>
+        </div>
+
+        <section className="px-5 pb-8 pt-12 sm:px-8 lg:pt-16">
+          <div className="mx-auto w-full max-w-6xl">
+            <span className="inline-flex items-center rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+              Casa de Carnes Modelo
+            </span>
+            <h1 className="mt-4 text-3xl font-bold leading-tight sm:text-4xl lg:text-[2.8rem]">
+              Como essa gestão funciona na prática
+            </h1>
+            <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+              Este é um ambiente demonstrativo de uma casa de carnes fictícia. Navegue livremente
+              pelas áreas, na ordem que preferir — não há sequência obrigatória nem cadastro para
+              explorar.
+            </p>
+          </div>
+        </section>
+
+        <div className="sticky top-16 z-40 border-y border-border/60 bg-background/90 backdrop-blur-xl">
+          <div
+            className="mx-auto flex w-full max-w-6xl gap-2 overflow-x-auto px-5 py-3 sm:px-8"
+            role="tablist"
+            aria-label="Áreas do ambiente demonstrativo"
+          >
+            {areas.map((a) => (
+              <button
+                key={a.id}
+                type="button"
+                role="tab"
+                aria-selected={ativo === a.id}
+                onClick={() => setAtivo(a.id)}
+                className={cn(
+                  "shrink-0 rounded-lg border px-3.5 py-2 text-sm font-medium transition-all duration-200",
+                  ativo === a.id
+                    ? "border-primary bg-primary/10 text-primary"
+                    : "border-border/70 text-muted-foreground hover:border-primary/50 hover:text-foreground",
+                )}
+              >
+                {a.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div key={area.id} className="animate-fade-in">
+          {area.render()}
+        </div>
+
         <Section
-          eyebrow="Demonstração"
-          title="Veja a plataforma funcionando com o cenário do seu açougue"
-          description="Preencha os dados abaixo e nossa equipe entrará em contato para agendar uma apresentação, presencial ou remota."
+          id="especialista"
+          tone="surface"
+          eyebrow="Conversa comercial"
+          title="Quer ver esses números com a realidade da sua empresa?"
+          description="Depois de explorar o ambiente demonstrativo, o próximo passo é simples: conversar sobre a sua operação."
         >
           <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr]">
-            <Panel id="especialista">
+            <Panel>
               {enviado ? (
                 <div className="flex flex-col items-center justify-center py-14 text-center">
                   <CheckCircle2 className="size-10 text-success" />
