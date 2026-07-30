@@ -115,7 +115,7 @@ function Demonstracao() {
           </div>
         </div>
 
-        <div key={area.id} className="animate-fade-in">
+        <div key={area.id} className="animate-fade">
           {area.render()}
         </div>
 
