@@ -6,13 +6,14 @@ import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { cn } from "@/lib/utils";
 
 const links = [
+  { href: "/#custo-nao-mudar", label: "Custo de não mudar" },
+  { href: "/#investimento", label: "Investimento" },
+  { href: "/#mentalidade", label: "Mentalidade" },
   { href: "/#solucao", label: "Solução" },
-  { href: "/#perdas", label: "Perdas" },
-  { href: "/#desossa", label: "Desossa" },
-  { href: "/#etiquetas", label: "Etiquetas" },
-  { href: "/#financeiro", label: "Financeiro" },
+  { href: "/#atencao-hoje", label: "Leitura gerencial" },
   { href: "/#simulador", label: "Simulador" },
 ];
+
 
 export function SiteNav() {
   const [scrolled, setScrolled] = useState(false);
